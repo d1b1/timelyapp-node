@@ -1,12 +1,11 @@
 {
-  "name": "timelyapp-api",
+  "name": "timelyapp-node",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "author": "Stephan Smith",
   "license": "MIT",
   "dependencies": {
-    "client-oauth2": "^2.2.0",
     "request": "^2.74.0",
     "underscore": "^1.8.3"
   }
