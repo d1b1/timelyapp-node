@@ -18,7 +18,7 @@ const oauth2 = simpleOauthModule.create({
 
 // Authorization uri definition
 const authorizationUri = oauth2.authorizationCode.authorizeURL({
-  redirect_uri: 'http://totalworth.herokuapp.com/callback',
+  redirect_uri: 'https://totalworth.herokuapp.com/callback',
   scope: 'notifications',
   state: '3(#0/!~',
 });
@@ -61,6 +61,6 @@ app.get('/', (req, res) => {
   res.send('Hello<br><a href="/auth">Log in with TimelyApp</a>');
 });
 
-app.listen(3000, () => {
-  console.log('Express server started on port 3000'); // eslint-disable-line
+app.listen(process.env.PORT, () => {
+  console.log('Express server started on port ' + process.env.PORT); // eslint-disable-line
 });
