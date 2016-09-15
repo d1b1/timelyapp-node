@@ -1,66 +1,73 @@
 'use strict';
 
+const ClientOAuth2 = require('client-oauth2')
 const express = require('express');
-const simpleOauthModule = require('simple-oauth2');
-
 const app = express();
-const oauth2 = simpleOauthModule.create({
-  client: {
-    id: '7b13759641c953444808165062907bd537fa8ffb488a5a55e8233e3e48c8a7ee',
-    secret: '5806498ead278d07c952f187253442891b7c7d39f0d72585ffb2b9369ae6b3fd',
-  },
-  auth: {
-    tokenHost: 'https://api.timelyapp.com/1.0',
-    tokenPath: '/oauth/token',
-    authorizePath: '/oauth/authorize',
-  },
+const timely = require('./timely');
+const _ = require('underscore');
+const async = require('async');
+const moment = require('moment');
+
+var timelyAppAuth = new ClientOAuth2({
+  clientId:         '294fc29c6e22f6b3c005bad44d767da8f47b055575a9e96951f7a020ba7a3e60',
+  clientSecret:     'ce96f7a7feeb6b32b6f47a8e366598a91c9ca3252ba0d5e86e955f2ecf97409d',
+  accessTokenUri:   'https://api.timelyapp.com/1.0/oauth/token',
+  authorizationUri: 'https://api.timelyapp.com/1.0/oauth/authorize',
+  redirectUri:      'http://bobo2.com:2000/callback',
 });
 
-// Authorization uri definition
-const authorizationUri = oauth2.authorizationCode.authorizeURL({
-  redirect_uri: 'https://totalworth.herokuapp.com/callback',
-  scope: 'notifications',
-  state: '3(#0/!~',
+app.get('/auth', function (req, res) {
+    var redir = timelyAppAuth.code.getUri();
+    res.redirect(redir);
 });
 
-// Initial page redirecting to Github
-app.get('/auth', (req, res) => {
-  console.log('Sending to Auth', authorizationUri);
-  res.redirect(authorizationUri);
+var timelyAPI = new timely('8e39bc671021ff14beaf226dfab01faa412afc2e85ec13d89b63ab29b35705e2')
+
+app.get('/callback', function (req, res) {
+  timelyAppAuth.code.getToken(req.url)
+    .then(function (user) {
+        res.json(user.data);
+    });
 });
 
-// Callback service parsing the authorization token and asking for the access token
-app.get('/callback', (req, res) => {
-  const code = req.query.code;
-  const options = {
-    code,
-  };
+app.get('/accounts', function (req, res) {
 
-  console.log('Got here for a callback');
+  timelyAPI.accounts.list({}, function(err, accounts) {
 
-  oauth2.authorizationCode.getToken(options, (error, result) => {
-    if (error) {
-      console.error('Access Token Error', error.message);
-      return res.json('Authentication failed');
-    }
+      var account = _.first(accounts);
 
-    console.log('The resulting token: ', result);
-    const token = oauth2.accessToken.create(result);
+      async.parallel({
+          account: function(callback) {
+              account.get(function(err, data) {
+                  callback(err, data);
+              });
+          },
+          projects: function(callback) {
+              account.projects(function(err, data) {
+                  callback(err, data);
+              });
+          },
+          events: function(callback) {
+              account.events(function(err, data) {
+                  callback(err, data);
+              });
+          }
+      }, function(err, results) {
+          res.json(results);
+      });
 
-    return res
-      .status(200)
-      .json(token);
   });
+
 });
 
-app.get('/success', (req, res) => {
-  res.send('');
-});
 
 app.get('/', (req, res) => {
-  res.send('Hello<br><a href="/auth">Log in with TimelyApp</a>');
+  res.send('Hello<br><a href="/auth">Log in with TimelyApp 2</a>');
 });
 
-app.listen(process.env.PORT, () => {
-  console.log('Express server started on port ' + process.env.PORT); // eslint-disable-line
+var port = 2000;
+// process.env.PORT || 4000;
+
+app.listen(port, () => {
+  console.log('Express server started on port ' + port); // eslint-disable-line
 });
