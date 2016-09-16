@@ -16,43 +16,43 @@ This package will stay on gh until it gets its tests and a bit more polish.
 The following are the api routes implemented. The OAuth2 server side calls are not
 relavent for this package. (Base URL https://api.timelyapp.com/1.0)
 
-    **Account API**
-     1. `GET` /accounts
-     1. `GET` /accounts/:account_id
+    Account API
+        `GET` /accounts
+        `GET` /accounts/:account_id
 
-    **Project API**
-     1. `GET` /:account_id/projects
-     1. `GET` /:account_id/projects/:project_id
-     1. `POST` /:account_id/projects
-     1. `PUT` /:account_id/projects/:project_id
-     1. `DEL` /:account_id/projects/:project_id
+    Project API
+        `GET` /:account_id/projects
+        `GET` /:account_id/projects/:project_id
+        `POST` /:account_id/projects
+        `PUT` /:account_id/projects/:project_id
+        `DEL` /:account_id/projects/:project_id
 
-    **Client API**
-     1. `GET` /:account_id/clients
-     1. `POST` /:account_id/clients
-     1. `PUT` /:account_id/clients/:client_id
-     1. `DEL` /:account_id/clients/:client_id
+    Client API
+        `GET` /:account_id/clients
+        `POST` /:account_id/clients
+        `PUT` /:account_id/clients/:client_id
+        `DEL` /:account_id/clients/:client_id
 
-    **User API**
-     1. `GET` /:account_id/users
-     1. `POST` /:account_id/users
-     1. `PUT` /:account_id/users/:user_id
-     1. `DEL` /:account_id/users/:user_id
+    User API
+        `GET` /:account_id/users
+        `POST` /:account_id/users
+        `PUT` /:account_id/users/:user_id
+        `DEL` /:account_id/users/:user_id
 
-    **Event API** (Time Records)
-     1. `GET` /:account_id/events
-     1. `GET` /:account_id/users/:user_id/events
-     1. `GET` /:account_id/projects/:project_id/events
-     1. `POST` /:account_id/events
-     1. `POST` /:account_id/users/:user_id/events
-     1. `POST` /:account_id/projects/:project_id/events
-     1. `PUT` /:account_id/events/:event_id
-     1. `PUT` /:account_id/projects/:project_id/events/:event_id
-     1. `PUT` /:account_id/users/:user_id/events/:event_id
-     1. `DEL` /:account_id/events/:event_id
+    Event API (Time Records)
+        `GET` /:account_id/events
+        `GET` /:account_id/users/:user_id/events
+        `GET` /:account_id/projects/:project_id/events
+        `POST` /:account_id/events
+        `POST` /:account_id/users/:user_id/events
+        `POST` /:account_id/projects/:project_id/events
+        `PUT` /:account_id/events/:event_id
+        `PUT` /:account_id/projects/:project_id/events/:event_id
+        `PUT` /:account_id/users/:user_id/events/:event_id
+        `DEL` /:account_id/events/:event_id
 
-    **Report API**
-     1. `POST` /:account_id/reports
+    Report API
+        `POST` /:account_id/reports
 
 ### Qualifications
 This wrapper does not enforce pre-flight data validation. And will (soon) simple
