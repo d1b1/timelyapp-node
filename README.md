@@ -6,42 +6,42 @@ full API as documented on the TimelyApp.
 
 ### API Implemented
 Account API
-1. GET /accounts
-1. GET /accounts/:account_id
+ 1. GET /accounts
+ 1. GET /accounts/:account_id
 
 Project API
-1. GET /:account_id/projects
-1. GET /:account_id/projects/:project_id
-1. POST /:account_id/projects
-1. PUT /:account_id/projects/:project_id
-1. DEL /:account_id/projects/:project_id
+ 1. GET /:account_id/projects
+ 1. GET /:account_id/projects/:project_id
+ 1. POST /:account_id/projects
+ 1. PUT /:account_id/projects/:project_id
+ 1. DEL /:account_id/projects/:project_id
 
 Client API
-1. GET /:account_id/clients
-1. POST /:account_id/clients
-1. PUT /:account_id/clients/:client_id
-1. DEL /:account_id/clients/:client_id
+ 1. GET /:account_id/clients
+ 1. POST /:account_id/clients
+ 1. PUT /:account_id/clients/:client_id
+ 1. DEL /:account_id/clients/:client_id
 
 User API
-1. GET /:account_id/users
-1. POST /:account_id/users
-1. PUT /:account_id/users/:user_id
-1. DEL /:account_id/users/:user_id
+ 1. GET /:account_id/users
+ 1. POST /:account_id/users
+ 1. PUT /:account_id/users/:user_id
+ 1. DEL /:account_id/users/:user_id
 
 Event API (Time Records)
-1. GET /:account_id/events
-1. GET /:account_id/users/:user_id/events
-1. GET /:account_id/projects/:project_id/events
-1. POST /:account_id/events
-1. POST /:account_id/users/:user_id/events
-1. POST /:account_id/projects/:project_id/events
-1. PUT /:account_id/events/:event_id
-1. PUT /:account_id/projects/:project_id/events/:event_id
-1. PUT /:account_id/users/:user_id/events/:event_id
-1. DEL /:account_id/events/:event_id
+ 1. GET /:account_id/events
+ 1. GET /:account_id/users/:user_id/events
+ 1. GET /:account_id/projects/:project_id/events
+ 1. POST /:account_id/events
+ 1. POST /:account_id/users/:user_id/events
+ 1. POST /:account_id/projects/:project_id/events
+ 1. PUT /:account_id/events/:event_id
+ 1. PUT /:account_id/projects/:project_id/events/:event_id
+ 1. PUT /:account_id/users/:user_id/events/:event_id
+ 1. DEL /:account_id/events/:event_id
 
 Report API
-1. POST /:account_id/reports
+ 1. POST /:account_id/reports
 
 ### Qualifications
 This wrapper does not enforce pre-flight data validation. And will (soon) simple
