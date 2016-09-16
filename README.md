@@ -16,18 +16,18 @@ This package will stay on gh until it gets its tests and a bit more polish.
 The following are the api routes implemented. The OAuth2 server side calls are not
 relavent for this package. (Base URL https://api.timelyapp.com/1.0)
 
-** Account API **
+**Account API**
  1. GET /accounts
  1. GET /accounts/:account_id
 
-** Project API **
+**Project API**
  1. GET /:account_id/projects
  1. GET /:account_id/projects/:project_id
  1. POST /:account_id/projects
  1. PUT /:account_id/projects/:project_id
  1. DEL /:account_id/projects/:project_id
 
-Client API
+**Client API**
  1. GET /:account_id/clients
  1. POST /:account_id/clients
  1. PUT /:account_id/clients/:client_id
