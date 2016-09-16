@@ -13,11 +13,14 @@ This package will stay on gh until it gets its tests and a bit more polish.
     npm install git+https://git@github.com/d1b1/timelyapp-node.git#master
 
 ### API Implemented
-Account API
+The following are the api routes implemented. The OAuth2 server side calls are not
+relavent for this package. (Base URL https://api.timelyapp.com/1.0)
+
+** Account API **
  1. GET /accounts
  1. GET /accounts/:account_id
 
-Project API
+** Project API **
  1. GET /:account_id/projects
  1. GET /:account_id/projects/:project_id
  1. POST /:account_id/projects
