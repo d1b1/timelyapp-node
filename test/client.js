@@ -54,10 +54,10 @@ describe('clients', function() {
     });
 
     it('should update a client (PUT :account_id/clients/:client_id)', function(done) {
-        var putRequest = sinon.stub(request, 'delete').yields(null, null, { name: 'New Name' });
+        var putRequest = sinon.stub(request, 'put').yields(null, null, { name: 'New Name' });
 
-        testClient.delete(function(err, project) {
-            expect(project.name).to.equal('New Name');
+        testClient.put({ name: 'New Name' }, function(err, client) {
+            expect(client.name).to.equal('New Name');
 
             putRequest.restore();
             done();

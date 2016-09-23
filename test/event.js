@@ -8,7 +8,7 @@ var api = require('../index.js')('aToken');
 
 describe('events', function() {
 
-    var testAccount, testProject;
+    var testAccount, testProject, testEvent;
 
     it('should get an account (GET /accounts/:account_id)', function(done) {
         var get = sinon.stub(request, 'get').yields(null, null, { id: 1 });
@@ -43,8 +43,8 @@ describe('events', function() {
         done();
     });
 
-    it('should create an a project event (POST /:account_id/events)', function(done) {
-        var postRequest = sinon.stub(request, 'post').yields(null, null, { id: 1 });
+    it('should create an a account event (POST /:account_id/events)', function(done) {
+        var postRequest = sinon.stub(request, 'post').yields(null, null, { account_id: 222, id: 1212 });
 
     	testAccount.createEvent({ name: 'Test' }, function(err, event) {
             // Was the mock called.
@@ -52,7 +52,7 @@ describe('events', function() {
 
             // Do we get an array of two items.
             expect(event.id).to.exist;
-            expect(event.id).to.equal(1);
+            expect(event.id).to.equal(1212);
 
             // Does the prototype contains have its methods.
             expect(event.id).to.exist;
@@ -60,10 +60,34 @@ describe('events', function() {
             expect(event.delete).to.exist;
             expect(event.get).to.exist;
 
+            testEvent = event;
+
             postRequest.restore();
     		done();
     	});
     });
 
+    it('should update a account event (PUT /:account_id/events/:event_id)', function(done) {
+        var putRequest = sinon.stub(request, 'put').yields(null, null, { id: 1212, account_id: 222, time: 10 });
+
+    	testEvent.put({ name: 'Test' }, function(err, event) {
+            if (err) console.log('asdfasdfasdfasd', err);
+            // Was the mock called.
+            expect(putRequest.calledOnce).to.be.true;
+
+            // Do we get an array of two items.
+            expect(event.id).to.exist;
+            expect(event.id).to.equal(1212);
+
+            // Does the prototype contains have its methods.
+            expect(event.id).to.exist;
+            expect(event.put).to.exist;
+            expect(event.delete).to.exist;
+            expect(event.get).to.exist;
+
+            putRequest.restore();
+    		done();
+    	});
+    });
 
 });

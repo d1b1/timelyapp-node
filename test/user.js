@@ -45,7 +45,7 @@ describe('users', function() {
         expect(testUser.put).to.exist;
     });
 
-    it('should delete a event (DEL /:account_id/users/:user_i)', function(done) {
+    it('should delete account user (DEL /:account_id/users/:user_id)', function(done) {
         var deleteUser = sinon.stub(request, 'delete').yields(null, null, { status: 'Successfully deleted.' });
 
         testUser.delete(function(err, response) {
@@ -56,13 +56,13 @@ describe('users', function() {
         });
     });
 
-    it('should update a project (PUT /:account_id/users/:user_id)', function(done) {
-        var putUser = sinon.stub(request, 'delete').yields(null, null, { name: 'New Name' });
+    it('should update account user (PUT /:account_id/users/:user_id)', function(done) {
+        var putRequest = sinon.stub(request, 'put').yields(null, null, { name: 'New Name' });
 
-        testUser.delete(function(err, project) {
-            expect(project.name).to.equal('New Name');
+        testUser.put({ name: 'Test Name' }, function(err, user) {
+            expect(user.name).to.equal('New Name');
 
-            putUser.restore();
+            putRequest.restore();
             done();
         });
     });

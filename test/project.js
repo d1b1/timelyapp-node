@@ -55,9 +55,9 @@ describe('projects', function() {
     });
 
     it('should update a project (PUT /:account_id/projects/:project_id)', function(done) {
-        var putProject = sinon.stub(request, 'delete').yields(null, null, { name: 'New Name' });
+        var putProject = sinon.stub(request, 'put').yields(null, null, { name: 'New Name' });
 
-        testProject.delete(function(err, project) {
+        testProject.put({ name: 'New Name' }, function(err, project) {
             expect(project.name).to.equal('New Name');
 
             putProject.restore();

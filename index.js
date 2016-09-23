@@ -4,7 +4,7 @@ const _ = require('underscore');
 module.exports = function(token) {
 
     var access_token = token;
-    var host = 'https://api.timelyapp.com/1.0';
+    var host = 'https://api.timelyapp.com/1.0/';
 
     var opts = {
         headers: {
@@ -46,7 +46,7 @@ module.exports = function(token) {
         request.put(host + path, { form: params }, opts,
             function (error, response, body) {
                 if (error) return callback(error);
-                var data = JSON.parse(body);
+                var data = (typeof body === 'string') ? data = JSON.parse(body) : body;
                 return callback(null, data);
         });
     };
@@ -74,19 +74,11 @@ module.exports = function(token) {
                 });
             };
 
-            // POST account_id:/users/:event_id
-            data.post = function(params, cb) {
-                _post(data.account_id + '/events', params, function(err, data) {
-                    if (err) return cb(err);
-                    cb(null, extendEvent(data));
-                });
-            };
-
-            // POST account_id:/users/:event_id
+            // GET account_id:/users/:event_id
             data.get = function(cb) {
                 _get(data.account_id + '/events', function(err, data) {
                     if (err) return cb(err);
-                    cb(null, data);
+                    cb(null, extendEvent(data));
                 });
             };
         }
@@ -299,9 +291,9 @@ module.exports = function(token) {
             },
 
             data.createEvent = function(params, cb) {
-                _post('/accounts/' + data.id + '/events', params, function(err, data) {
+                _post('/' + data.id + '/events', params, function(err, data) {
                     if (err) return cb(err);
-                    cb(null, extendUser(data));
+                    cb(null, extendEvent(data));
                 });
             },
 
@@ -324,12 +316,6 @@ module.exports = function(token) {
                     cb(null, extendAccount(results));
                 });
             },
-            // post: function(params, cb) {
-            //     _post('/accounts', params, function(err, data) {
-            //         if (err) return cb(err);
-            //         cb(err, extendAccount(data));
-            //     });
-            // },
 
             // delete - Not available.
 
