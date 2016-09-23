@@ -9,6 +9,8 @@ dev itch. so...
 
 [ ![Codeship Status for d1b1/timelyapp-node](https://codeship.com/projects/155bddf0-63da-0134-68f7-3efe9c97f668/status?branch=master)](https://codeship.com/projects/175463)
 
+[![Coverage Status](https://coveralls.io/repos/github/d1b1/timelyapp-node/badge.svg)](https://coveralls.io/github/d1b1/timelyapp-node)
+
 ### Install
 This package will stay on gh until it gets its tests and a bit more polish.
 
