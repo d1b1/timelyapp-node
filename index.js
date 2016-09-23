@@ -263,42 +263,42 @@ module.exports = function(token) {
 
             // GET /accounts/:id (Single Account)
             data.get = function(cb) {
-                  _get('/accounts/' + data.id, {}, function(err, data) {
+                  _get('accounts/' + data.id, {}, function(err, data) {
                       if (err) return cb(err);
                       cb(null, extendAccount(data));
                 });
             },
 
             data.createProject = function(params, cb) {
-                _post('/accounts/' + data.id + '/projects', params, function(err, data) {
+                _post(data.id + '/projects', params, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendProject(data));
                 });
             },
 
             data.createClient = function(params, cb) {
-                _post('/accounts/' + data.id + '/clients', params, function(err, data) {
+                _post(data.id + '/clients', params, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendClient(data));
                 });
             },
 
             data.createUser = function(params, cb) {
-                _post('/accounts/' + data.id + '/users', params, function(err, data) {
+                _post(data.id + '/users', params, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendUser(data));
                 });
             },
 
             data.createEvent = function(params, cb) {
-                _post('/' + data.id + '/events', params, function(err, data) {
+                _post(data.id + '/events', params, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendEvent(data));
                 });
             },
 
             data.createReport = function(params, cb) {
-                _post('/' + data.id + '/reports', params, function(err, data) {
+                _post(data.id + '/reports', params, function(err, data) {
                     if (err) return cb(err);
                     cb(null, data);
                 });

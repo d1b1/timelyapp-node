@@ -90,4 +90,18 @@ describe('events', function() {
     	});
     });
 
+    it('should delete account event (DEL /:account_id/events/:event_id)', function(done) {
+        var deleteRequest = sinon.stub(request, 'delete').yields(null, null, { status: true });
+
+    	testEvent.delete(function(err, event) {
+            if (err) console.log('asdfasdfasdfasd', err);
+            // Was the mock called.
+            expect(deleteRequest.calledOnce).to.be.true;
+
+
+            deleteRequest.restore();
+    		done();
+    	});
+    });
+
 });

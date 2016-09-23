@@ -42,6 +42,18 @@ describe('accounts', function() {
 		});
 	});
 
+    it('should get account projects (GET /accounts/:account_id)', function(done) {
+        var getRequest = sinon.stub(request, 'get').yields(null, null, { account_id: 1, id: 6, name: 'Bart'} );
+
+		testAccount.get(function(err, user) {
+            expect(user.id).to.exist;
+            expect(user.account_id).to.equal(1);
+
+            getRequest.restore();
+			done();
+		});
+	});
+
     it('should get account projects (GET /:account_id/projects)', function(done) {
         var getUsers = sinon.stub(request, 'get').yields(null, null, [ { account_id: 1, id: 5, name: 'Stephan' }, { account_id: 1, id: 6, name: 'Bart'} ]);
 
