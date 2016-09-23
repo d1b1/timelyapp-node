@@ -37,7 +37,7 @@ module.exports = function(token) {
         request.delete(host + path, opts,
             function (error, response, body) {
                 if (error) return callback(error);
-                var data = JSON.parse(body);
+                var data = (typeof body === 'string') ? data = JSON.parse(body) : body;
                 return callback(null, data);
         });
     };
@@ -67,7 +67,7 @@ module.exports = function(token) {
             };
 
             // DELETE account_id:/users/:event_id
-            data.delete = function(params, cb) {
+            data.delete = function(cb) {
                 _delete(data.account_id + '/events/' + data.id, function(err, data) {
                     if (err) return cb(err);
                     cb(null, data);
@@ -102,10 +102,10 @@ module.exports = function(token) {
             });
         } else {
             // GET EVENTS account_id:/users/:project_id/events
-            data.events = function(params, cb) {
-                _get(data.account_id + '/projects/' + data.id + '/events', params, function(err, data) {
+            data.events = function(cb) {
+                _get(data.account_id + '/projects/' + data.id + '/events', null, function(err, data) {
                     if (err) return cb(err);
-                    cb(null, extendEvents(data));
+                    cb(null, extendEvent(data));
                 });
             };
 
@@ -118,10 +118,10 @@ module.exports = function(token) {
             };
 
             // DELETE account_id:/users/:project_id
-            data.delete = function(params, cb) {
+            data.delete = function(cb) {
                 _delete(data.account_id + '/projects/' + data.id, function(err, data) {
                     if (err) return cb(err);
-                    cb(null, extendProject(data));
+                    cb(null, data);
                 });
             };
 
@@ -132,6 +132,13 @@ module.exports = function(token) {
                       cb(null, extendProject(data));
                 });
             };
+
+            data.createEvent = function(params, cb) {
+                _post(data.account_id + '/projects/' + data.id + '/events', params, function(err, data) {
+                    if (err) return cb(err);
+                    cb(null, extendEvent(data));
+                });
+            }
         }
 
         return data;
@@ -153,7 +160,7 @@ module.exports = function(token) {
             };
 
             // DEL account_id:/clients/:client_id
-            data.delete = function(params, cb) {
+            data.delete = function(cb) {
                 _delete(data.account_id + '/clients/' + data.id, function(err, data) {
                     if (err) return cb(err);
                     cb(null, data);
@@ -180,17 +187,10 @@ module.exports = function(token) {
             });
         } else {
             // GET accont_id:/events
-            data.events = function(params, cb) {
-                _get(data.account_id + '/users/' + data.id + '/events', params, function(err, data) {
+            data.events = function(cb) {
+                _get(data.account_id + '/users/' + data.id + '/events', null, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendEvent(data));
-                });
-            };
-
-            data.clients = function(params, cb) {
-                _get(data.account_id + '/users/' + data.id + '/clients', params, function(err, data) {
-                    if (err) return cb(err);
-                    cb(null, extendClient(data));
                 });
             };
 
@@ -203,7 +203,7 @@ module.exports = function(token) {
             };
 
             // DELETE account_id:/users/:user_id
-            data.delete = function(params, cb) {
+            data.delete = function(cb) {
                 _delete(data.account_id + '/user/' + data.id, function(err, data) {
                     if (err) return cb(err);
                     cb(null, data);
@@ -217,6 +217,13 @@ module.exports = function(token) {
                       cb(null, extendUser(data));
                 });
             };
+
+            data.createEvent = function(params, cb) {
+                _post(data.account_id + '/users/' + data.id + '/events', params, function(err, data) {
+                    if (err) return cb(err);
+                    cb(null, extendEvent(data));
+                });
+            }
         }
 
         return data;
@@ -276,7 +283,42 @@ module.exports = function(token) {
                       if (err) return cb(err);
                       cb(null, extendAccount(data));
                 });
-            };
+            },
+
+            data.createProject = function(params, cb) {
+                _post('/accounts/' + data.id + '/projects', params, function(err, data) {
+                    if (err) return cb(err);
+                    cb(null, extendProject(data));
+                });
+            },
+
+            data.createClient = function(params, cb) {
+                _post('/accounts/' + data.id + '/clients', params, function(err, data) {
+                    if (err) return cb(err);
+                    cb(null, extendClient(data));
+                });
+            },
+
+            data.createUser = function(params, cb) {
+                _post('/accounts/' + data.id + '/users', params, function(err, data) {
+                    if (err) return cb(err);
+                    cb(null, extendUser(data));
+                });
+            },
+
+            data.createEvent = function(params, cb) {
+                _post('/accounts/' + data.id + '/events', params, function(err, data) {
+                    if (err) return cb(err);
+                    cb(null, extendUser(data));
+                });
+            },
+
+            data.createReport = function(params, cb) {
+                _post('/' + data.id + '/reports', params, function(err, data) {
+                    if (err) return cb(err);
+                    cb(null, data);
+                });
+            }
         }
 
         return data;
@@ -284,8 +326,8 @@ module.exports = function(token) {
 
     return {
         accounts: {
-            list: function(params, cb) {
-                _get('/accounts', params, function(err, results) {
+            list: function(cb) {
+                _get('/accounts', null, function(err, results) {
                     if (err) return cb(err);
                     cb(null, extendAccount(results));
                 });
@@ -296,13 +338,9 @@ module.exports = function(token) {
                     cb(err, extendAccount(data));
                 });
             },
-            // put: function(params, cb) {
-            //     _put('/accounts/' + account.id, params, function(err, data) {
-            //         if (err) return cb(err);
-            //         cb(err, extendAccount(data));
-            //     });
-            // },
-            // delete: function(data, cb) {},
+
+            // delete - Not available.
+
             get: function(id, cb) {
                 _get('/accounts/' + id, {}, function(err, data) {
                     if (err) return cb(err);
