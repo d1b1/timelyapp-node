@@ -5,7 +5,7 @@
   "main": "index.js",
   "author": "Stephan Smith",
   "scripts": {
-      "test": "./node_modules/.bin/mocha --reporter spec --timeout 10000 test",
+      "test": "./node_modules/.bin/mocha --reporter spec --timeout 10000 test"
   },
   "license": "MIT",
   "dependencies": {
