@@ -4,7 +4,7 @@ Node package to make the TimelyApp OAuth 2 API accessible to node apps. This is
 very beta. It does not include an OAuth2 CLient (as yet). But it does implement the
 full API as documented on the TimelyApp.
 
-Note: This is not an official package. Is home grown and designed to scratch my
+Note: This is not an official package. It's home grown and designed to scratch my
 dev itch. so...
 
 [ ![Codeship Status for d1b1/timelyapp-node](https://codeship.com/projects/155bddf0-63da-0134-68f7-3efe9c97f668/status?branch=master)](https://codeship.com/projects/175463)

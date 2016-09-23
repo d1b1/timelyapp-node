@@ -5,7 +5,9 @@
   "main": "index.js",
   "author": "Stephan Smith",
   "scripts": {
-      "test": "./node_modules/.bin/mocha --reporter spec --timeout 10000 test"
+    "test": "./node_modules/.bin/mocha --reporter spec --timeout 10000 test",
+    "coverage": "istanbul cover _mocha test -- -t 10000 -R spec",
+    "coveralls": "npm run-script coverage && node node_modules/.bin/coveralls < coverage/lcov.info"
   },
   "license": "MIT",
   "dependencies": {
@@ -14,6 +16,8 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "coveralls": "^2.11.14",
+    "istanbul": "^0.4.5",
     "mocha": "^3.0.2",
     "sinon": "^1.17.6"
   }
