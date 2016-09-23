@@ -4,9 +4,17 @@
   "description": "",
   "main": "index.js",
   "author": "Stephan Smith",
+  "scripts": {
+      "test": "./node_modules/.bin/mocha --reporter spec --timeout 10000 test",
+  },
   "license": "MIT",
   "dependencies": {
     "request": "^2.74.0",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "sinon": "^1.17.6"
   }
 }

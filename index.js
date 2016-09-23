@@ -4,7 +4,7 @@ const _ = require('underscore');
 module.exports = function(token) {
 
     var access_token = token;
-    var host = 'https://api.timelyapp.com/1.0/';
+    var host = 'https://api.timelyapp.com/1.0';
 
     var opts = {
         headers: {
@@ -19,18 +19,18 @@ module.exports = function(token) {
         request.get(host + path, opts,
             function (error, response, body) {
                 if (error) return callback(error);
-                var data = JSON.parse(body);
+                var data = (typeof body === 'string') ? data = JSON.parse(body) : body;
                 return callback(null, data);
         });
     };
 
     var _post = function(path, params, callback) {
-        request.post(host + path, opts,
+        request.post(host + path, { form: params }, opts,
             function (error, response, body) {
                 if (error) return callback(error);
-                var data = JSON.parse(body);
+                var data = (typeof body === 'string') ? data = JSON.parse(body) : body;
                 return callback(null, data);
-        }).form(params);
+        });
     };
 
     var _delete = function(path, callback) {
@@ -43,12 +43,12 @@ module.exports = function(token) {
     };
 
     var _put = function(path, params, callback) {
-        request.put(host + path, opts,
+        request.put(host + path, { form: params }, opts,
             function (error, response, body) {
                 if (error) return callback(error);
                 var data = JSON.parse(body);
                 return callback(null, data);
-        }).form(params);
+        });
     };
 
     var extendEvent = function(data) {
@@ -296,12 +296,12 @@ module.exports = function(token) {
                     cb(err, extendAccount(data));
                 });
             },
-            put: function(params, cb) {
-                _put('/accounts/' + account.id, params, function(err, data) {
-                    if (err) return cb(err);
-                    cb(err, extendAccount(data));
-                });
-            },
+            // put: function(params, cb) {
+            //     _put('/accounts/' + account.id, params, function(err, data) {
+            //         if (err) return cb(err);
+            //         cb(err, extendAccount(data));
+            //     });
+            // },
             // delete: function(data, cb) {},
             get: function(id, cb) {
                 _get('/accounts/' + id, {}, function(err, data) {
