@@ -244,14 +244,6 @@ module.exports = function(token) {
                 });
             };
 
-            // POST account_id:/reports (Create a Report)
-            data.reports = function(params, cb) {
-                _post(data.account_id + '/users', params, function(err, data) {
-                    if (err) return cb(err);
-                    cb(null, data);
-                });
-            };
-
             // GET account_id:/events (All Account Events)
             data.events = function(cb) {
                 _get(data.id + '/events', {}, function(err, data) {
@@ -332,12 +324,12 @@ module.exports = function(token) {
                     cb(null, extendAccount(results));
                 });
             },
-            post: function(params, cb) {
-                _post('/accounts', params, function(err, data) {
-                    if (err) return cb(err);
-                    cb(err, extendAccount(data));
-                });
-            },
+            // post: function(params, cb) {
+            //     _post('/accounts', params, function(err, data) {
+            //         if (err) return cb(err);
+            //         cb(err, extendAccount(data));
+            //     });
+            // },
 
             // delete - Not available.
 

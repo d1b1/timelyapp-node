@@ -12,7 +12,6 @@ describe('accounts', function() {
 
     it('account entity has methods', function(done) {
         expect(api.accounts.list).to.exist;
-        expect(api.accounts.post).to.exist;
         expect(api.accounts.get).to.exist;
         done();
     });
