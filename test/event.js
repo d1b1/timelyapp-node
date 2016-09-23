@@ -71,7 +71,6 @@ describe('events', function() {
         var putRequest = sinon.stub(request, 'put').yields(null, null, { id: 1212, account_id: 222, time: 10 });
 
     	testEvent.put({ name: 'Test' }, function(err, event) {
-            if (err) console.log('asdfasdfasdfasd', err);
             // Was the mock called.
             expect(putRequest.calledOnce).to.be.true;
 
@@ -94,12 +93,31 @@ describe('events', function() {
         var deleteRequest = sinon.stub(request, 'delete').yields(null, null, { status: true });
 
     	testEvent.delete(function(err, event) {
-            if (err) console.log('asdfasdfasdfasd', err);
             // Was the mock called.
             expect(deleteRequest.calledOnce).to.be.true;
 
-
             deleteRequest.restore();
+    		done();
+    	});
+    });
+
+    it('should get account event (GET /:account_id/events/:event_id)', function(done) {
+        var getRequest = sinon.stub(request, 'get').yields(null, null, { id: 1212, account_id: 222, time: 10 });
+
+    	testEvent.get(function(err, event) {
+            expect(getRequest.calledOnce).to.be.true;
+
+            // Do we get an array of two items.
+            expect(event.id).to.exist;
+            expect(event.id).to.equal(1212);
+
+            // Does the prototype contains have its methods.
+            expect(event.id).to.exist;
+            expect(event.put).to.exist;
+            expect(event.delete).to.exist;
+            expect(event.get).to.exist;
+
+            getRequest.restore();
     		done();
     	});
     });

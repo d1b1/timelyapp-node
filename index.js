@@ -76,7 +76,7 @@ module.exports = function(token) {
 
             // GET account_id:/users/:event_id
             data.get = function(cb) {
-                _get(data.account_id + '/events', function(err, data) {
+                _get(data.account_id + '/events/' + data.id, null, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendEvent(data));
                 });
