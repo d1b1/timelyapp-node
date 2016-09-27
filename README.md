@@ -25,10 +25,11 @@ relevant for this package. (Base URL https://api.timelyapp.com/1.0). The package
 API extends each entity with get, UPDATE, DELETE, and Entity specific list
 queries. The API structure is in flux, so `account.get` might change to `account.fetch`.
 Right now to access any sub entity, the users needs to walk the entity tree, this
-is changing.
+is changing. The four base APIs return User, Project, Account, Client or Event
+entities.
 
     Root Functions (No entity required).
-        accounts.list(cb) /accounts
+        `accounts.list(cb)` /accounts
         getAccount(account_id) GET /accounts/:account_id
         getProject(account_id, project_id) GET /:account_id/projects/:project_id
         getClient(account_id, project_id) GET /:account_id/clients/:client_id
