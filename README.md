@@ -27,21 +27,22 @@ queries. The API structure is in flux, so `account.get` might change to `account
 Right now to access any sub entity, the users needs to walk the entity tree, this
 is changing.
 
-    Root Functions
+    Root Functions (No entity required).
+        accounts.list(cb) /accounts
+        getAccount(account_id) GET /accounts/:account_id
         getProject(account_id, project_id) GET /:account_id/projects/:project_id
         getClient(account_id, project_id) GET /:account_id/clients/:client_id
         getUser(account_id, user_id) GET /:account_id/users/:user_id
         getEvent(account_id, event_id) GET /:account_id/events/:event_id
 
-    Account API
-        account.list(cb) /accounts
-        account.get(cb) /accounts/:account_id
-        account.users(cb) /:account_id/users
-        account.clients(cb) /:account_id/clients
-        account.projects(cb) /:account_id/projects
-        account.createProject(params, cb) /:account_id/projects
-        account.createUser(params, cb) /:account_id/users
-        account.createEvent(params, cb) /:account_id/events
+    Account API (returns an Account entity or Account of Entities)
+        [account].get(cb) /accounts/:account_id - Get/Fetch a given account again.
+        [account].users(cb) /:account_id/users - Get an array of all account users (returns array of [Accounts])
+        [account].clients(cb) /:account_id/clients
+        [account].projects(cb) /:account_id/projects
+        [account].createProject(params, cb) /:account_id/projects
+        [account].createUser(params, cb) /:account_id/users
+        [account].createEvent(params, cb) /:account_id/events
 
     Project API
         [project].get(cb) /:account_id/projects/:project_id - Reload/Fetches a given project again.

@@ -13,7 +13,7 @@ describe('users', function() {
     it('should get an account (GET /accounts/:account_id)', function(done) {
         var getAccount = sinon.stub(request, 'get').yields(null, null, { id: 1 });
 
-		api.accounts.get(1, function(err, account) {
+		api.getAccount(1, function(err, account) {
             testAccount = account;
             expect(account.id).to.exist;
 

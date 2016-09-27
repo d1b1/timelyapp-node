@@ -331,20 +331,18 @@ module.exports = function(token) {
                     if (err) return cb(err);
                     cb(null, extendAccount(results));
                 });
-            },
-
-            // delete - Not available.
-
-            get: function(id, cb) {
-                _get('/accounts/' + id, {}, function(err, data) {
-                    if (err) return cb(err);
-                    cb(null, extendAccount(data));
-                });
             }
         },
 
         // Helpers that allow account and entity id access. These are designed
         // to help Express endpoints access data more quickly.
+
+        getAccount: function(id, cb) {
+            _get('/accounts/' + id, {}, function(err, data) {
+                if (err) return cb(err);
+                cb(null, extendAccount(data));
+            });
+        },
 
         getProject: function(account_id, project_id, cb) {
             _get(account_id + '/projects/' + project_id, {}, function(err, data) {

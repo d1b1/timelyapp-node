@@ -12,14 +12,17 @@ describe('accounts', function() {
 
     it('account entity has methods', function(done) {
         expect(api.accounts.list).to.exist;
-        expect(api.accounts.get).to.exist;
+        expect(api.getAccount).to.exist;
+        expect(api.getProject).to.exist;
+        expect(api.getUser).to.exist;
+        expect(api.getClient).to.exist;
         done();
     });
 
     it('should get an account (GET /accounts/:account_id)', function(done) {
         var get = sinon.stub(request, 'get').yields(null, null, { id: 1 });
 
-		api.accounts.get(1, function(err, account) {
+		api.getAccount(1, function(err, account) {
             testAccount = account;
             expect(account.id).to.exist;
 
