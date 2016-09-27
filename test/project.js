@@ -39,7 +39,7 @@ describe('projects', function() {
     it('project entity has methods', function(done) {
         expect(testProject.get).to.exist;
         expect(testProject.delete).to.exist;
-        expect(testProject.put).to.exist;
+        expect(testProject.update).to.exist;
         done();
     });
 
@@ -57,7 +57,7 @@ describe('projects', function() {
     it('should update a project (PUT /:account_id/projects/:project_id)', function(done) {
         var putProject = sinon.stub(request, 'put').yields(null, null, { name: 'New Name' });
 
-        testProject.put({ name: 'New Name' }, function(err, project) {
+        testProject.update({ name: 'New Name' }, function(err, project) {
             expect(project.name).to.equal('New Name');
 
             putProject.restore();
@@ -100,7 +100,7 @@ describe('projects', function() {
 
             // Does the prototype contains have its methods.
             expect(event.id).to.exist;
-            expect(event.put).to.exist;
+            expect(event.update).to.exist;
             expect(event.delete).to.exist;
             expect(event.get).to.exist;
 

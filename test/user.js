@@ -42,7 +42,7 @@ describe('users', function() {
         expect(testUser.events).to.exist;
         expect(testUser.get).to.exist;
         expect(testUser.delete).to.exist;
-        expect(testUser.put).to.exist;
+        expect(testUser.update).to.exist;
     });
 
     it('should delete account user (DEL /:account_id/users/:user_id)', function(done) {
@@ -59,7 +59,7 @@ describe('users', function() {
     it('should update account user (PUT /:account_id/users/:user_id)', function(done) {
         var putRequest = sinon.stub(request, 'put').yields(null, null, { name: 'New Name' });
 
-        testUser.put({ name: 'Test Name' }, function(err, user) {
+        testUser.update({ name: 'Test Name' }, function(err, user) {
             expect(user.name).to.equal('New Name');
 
             putRequest.restore();
@@ -103,7 +103,7 @@ describe('users', function() {
 
             // Does the prototype contains have its methods.
             expect(event.id).to.exist;
-            expect(event.put).to.exist;
+            expect(event.update).to.exist;
             expect(event.delete).to.exist;
             expect(event.get).to.exist;
 

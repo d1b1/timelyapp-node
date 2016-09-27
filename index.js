@@ -59,12 +59,27 @@ module.exports = function(token) {
             });
         } else {
             // PUT account_id:/events/:event_id
-            data.put = function(params, cb) {
+            data.update = function(params, cb) {
                 _put(data.account_id + '/events/' + data.id, params, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendEvent(data));
                 });
             };
+
+            data.changeProject = function(projectId, cb) {
+                _put(data.account_id + '/projects/' + projectId + '/events/' + data.id, params, function(err, data) {
+                    if (err) return cb(err);
+                    cb(null, extendEvent(data));
+                });
+            };
+
+            data.changeUser = function(userId, cb) {
+                _put(data.account_id + '/users/' + userId + '/events/' + data.id, params, function(err, data) {
+                    if (err) return cb(err);
+                    cb(null, extendEvent(data));
+                });
+            };
+
 
             // DELETE account_id:/users/:event_id
             data.delete = function(cb) {
@@ -102,7 +117,7 @@ module.exports = function(token) {
             };
 
             // PUT account_id:/users/:project_id
-            data.put = function(params, cb) {
+            data.update = function(params, cb) {
                 _put(data.account_id + '/projects/' + data.id, params, function(err, data) {
                     if (err) return cb(err);
                     cb(null, data);
@@ -144,7 +159,7 @@ module.exports = function(token) {
             });
         } else {
             // PUT account_id:/clients/:client_id
-            data.put = function(params, cb) {
+            data.update = function(params, cb) {
                 _put(data.account_id + '/clients/' + data.id, params, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendClient(data));
@@ -187,7 +202,7 @@ module.exports = function(token) {
             };
 
             // PUT account_id:/users/:user_id
-            data.put = function(params, cb) {
+            data.update = function(params, cb) {
                 _put(data.account_id + '/user/' + data.id, params, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendUser(data));

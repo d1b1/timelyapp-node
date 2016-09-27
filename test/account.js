@@ -129,7 +129,7 @@ describe('accounts', function() {
 
             // Does the prototype contains have its methods.
             expect(client.id).to.exist;
-            expect(client.put).to.exist;
+            expect(client.update).to.exist;
             expect(client.delete).to.exist;
             expect(client.get).to.exist;
 
@@ -151,7 +151,7 @@ describe('accounts', function() {
 
             // Does the prototype contains have its methods.
             expect(client.id).to.exist;
-            expect(client.put).to.exist;
+            expect(client.update).to.exist;
             expect(client.delete).to.exist;
             expect(client.get).to.exist;
 
@@ -173,7 +173,7 @@ describe('accounts', function() {
 
             // Does the prototype contains have its methods.
             expect(event.id).to.exist;
-            expect(event.put).to.exist;
+            expect(event.update).to.exist;
             expect(event.delete).to.exist;
             expect(event.get).to.exist;
 

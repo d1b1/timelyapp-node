@@ -39,7 +39,7 @@ describe('clients', function() {
     it('client entity has methods', function() {
         expect(testClient.get).to.exist;
         expect(testClient.delete).to.exist;
-        expect(testClient.put).to.exist;
+        expect(testClient.update).to.exist;
     });
 
     it('should delete a client (DEL :account_id/clients/:user_i)', function(done) {
@@ -56,7 +56,7 @@ describe('clients', function() {
     it('should update a client (PUT :account_id/clients/:client_id)', function(done) {
         var putRequest = sinon.stub(request, 'put').yields(null, null, { name: 'New Name' });
 
-        testClient.put({ name: 'New Name' }, function(err, client) {
+        testClient.update({ name: 'New Name' }, function(err, client) {
             expect(client.name).to.equal('New Name');
 
             putRequest.restore();

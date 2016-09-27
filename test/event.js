@@ -39,7 +39,7 @@ describe('events', function() {
     it('project entity has methods', function(done) {
         expect(testProject.get).to.exist;
         expect(testProject.delete).to.exist;
-        expect(testProject.put).to.exist;
+        expect(testProject.update).to.exist;
         done();
     });
 
@@ -56,7 +56,7 @@ describe('events', function() {
 
             // Does the prototype contains have its methods.
             expect(event.id).to.exist;
-            expect(event.put).to.exist;
+            expect(event.update).to.exist;
             expect(event.delete).to.exist;
             expect(event.get).to.exist;
 
@@ -70,7 +70,7 @@ describe('events', function() {
     it('should update a account event (PUT /:account_id/events/:event_id)', function(done) {
         var putRequest = sinon.stub(request, 'put').yields(null, null, { id: 1212, account_id: 222, time: 10 });
 
-    	testEvent.put({ name: 'Test' }, function(err, event) {
+    	testEvent.update({ name: 'Test' }, function(err, event) {
             // Was the mock called.
             expect(putRequest.calledOnce).to.be.true;
 
@@ -80,7 +80,7 @@ describe('events', function() {
 
             // Does the prototype contains have its methods.
             expect(event.id).to.exist;
-            expect(event.put).to.exist;
+            expect(event.update).to.exist;
             expect(event.delete).to.exist;
             expect(event.get).to.exist;
 
@@ -113,7 +113,7 @@ describe('events', function() {
 
             // Does the prototype contains have its methods.
             expect(event.id).to.exist;
-            expect(event.put).to.exist;
+            expect(event.update).to.exist;
             expect(event.delete).to.exist;
             expect(event.get).to.exist;
 
