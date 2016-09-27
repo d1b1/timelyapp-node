@@ -75,34 +75,47 @@ Report API
     post /:account_id/reports
 
 ### Examples
-Get a specific project, using a helper.
+Get a specific entity, using a helper.
 
-    timely.getProject(1, 1212, function(err, project) {
-        res.json(project);
-    });
+    var timelyapp-node = require('timelyapp-node');
 
-Get all the users in a given account.
+    // Assumes an existing user token.
+    var timely = new timelyapp-node(<token>);
 
-    timely.account.get(1212, function(err, account) {
+    timely.getAccount(1212, function(err, account) {
         account.users(function(err, users) {
             res.json(users);
         });
     });
 
-Create an Event
+    timely.getProject(1, 1212, function(err, project) {
+        res.json(project);
+    });
 
-    timely.account.get(1212, function(err, account) {
+    timely.getUser(1, 3333, function(err, user) {
+        res.json(user);
+    });
+
+    timely.getEvent(1, 20202, function(err, event) {
+        res.json(event);
+    });
+
+    timely.getClient(1, 39322, function(err, client) {
+        res.json(client);
+    });
+
+Create an Event (uses entity methods)
+
+    timely.getAccount(1212, function(err, account) {
         account.createEvent({ ... }, function(err, event) {
             res.json(event);
         });
     });
 
-Create an Project
+Create an Project (uses an account entity)
 
-    timely.account.get(1212, function(err, account) {
-        account.createProject({ ... }, function(err, project) {
-            res.json(project);
-        });
+    account.createProject({ ... }, function(err, project) {
+        res.json(project);
     });
 
 ### Qualifications
