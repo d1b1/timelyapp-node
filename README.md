@@ -75,12 +75,14 @@ Report API
     post /:account_id/reports
 
 ### Examples
-Get a specific entity, using a helper.
+The following require this to access the API.
 
     var timelyapp-node = require('timelyapp-node');
 
     // Assumes an existing user token.
     var timely = new timelyapp-node(<token>);
+
+Get a specific entity, using a helper.
 
     timely.getAccount(1212, function(err, account) {
         account.users(function(err, users) {
@@ -102,6 +104,12 @@ Get a specific entity, using a helper.
 
     timely.getClient(1, 39322, function(err, client) {
         res.json(client);
+    });
+
+Get all Accounts for a given token.
+
+    timely.accounts.list(function(err, accounts) {
+        res.json(accounts);
     });
 
 Create an Event (uses entity methods)
