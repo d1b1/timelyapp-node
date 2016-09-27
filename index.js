@@ -67,14 +67,14 @@ module.exports = function(token) {
             };
 
             data.changeProject = function(projectId, cb) {
-                _put(data.account_id + '/projects/' + projectId + '/events/' + data.id, params, function(err, data) {
+                _put(data.account_id + '/projects/' + projectId + '/events/' + data.id, {}, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendEvent(data));
                 });
             };
 
             data.changeUser = function(userId, cb) {
-                _put(data.account_id + '/users/' + userId + '/events/' + data.id, params, function(err, data) {
+                _put(data.account_id + '/users/' + userId + '/events/' + data.id, {}, function(err, data) {
                     if (err) return cb(err);
                     cb(null, extendEvent(data));
                 });

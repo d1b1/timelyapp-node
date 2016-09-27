@@ -122,4 +122,48 @@ describe('events', function() {
     	});
     });
 
+    it('should update event product (GET /:account_id/projects/:project_id/events/:event_id)', function(done) {
+        var putRequest = sinon.stub(request, 'put').yields(null, null, { id: 1212, account_id: 222, project_id: 222, time: 10 });
+
+    	testEvent.changeProject(222, function(err, event) {
+            expect(putRequest.calledOnce).to.be.true;
+
+            // Do we get an array of two items.
+            expect(event.id).to.exist;
+            expect(event.id).to.equal(1212);
+            expect(event.project_id).to.equal(222);
+
+            // Does the prototype contains have its methods.
+            expect(event.id).to.exist;
+            expect(event.update).to.exist;
+            expect(event.delete).to.exist;
+            expect(event.get).to.exist;
+
+            putRequest.restore();
+    		done();
+    	});
+    });
+
+    it('should update event user (GET /:account_id/users/:project_id/events/:event_id)', function(done) {
+        var putRequest = sinon.stub(request, 'put').yields(null, null, { id: 1212, account_id: 222, user_id: 333, time: 10 });
+
+    	testEvent.changeUser(333, function(err, event) {
+            expect(putRequest.calledOnce).to.be.true;
+
+            // Do we get an array of two items.
+            expect(event.id).to.exist;
+            expect(event.id).to.equal(1212);
+            expect(event.user_id).to.equal(333);
+
+            // Does the prototype contains have its methods.
+            expect(event.id).to.exist;
+            expect(event.update).to.exist;
+            expect(event.delete).to.exist;
+            expect(event.get).to.exist;
+
+            putRequest.restore();
+    		done();
+    	});
+    });
+
 });
