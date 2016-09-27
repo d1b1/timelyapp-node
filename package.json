@@ -1,7 +1,7 @@
 {
   "name": "timelyapp-node",
   "version": "0.0.2",
-  "description": "Node wrapper for the TimelyApp API.",
+  "description": "Node package for the TimelyApp API.",
   "main": "index.js",
   "author": "Stephan Smith",
   "scripts": {
