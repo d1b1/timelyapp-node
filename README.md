@@ -29,47 +29,47 @@ is changing. The four base APIs return User, Project, Account, Client or Event
 entities.
 
 Root Functions (No entity required).
- * `accounts.list(cb)` /accounts
- * `getAccount(account_id)` GET /accounts/:account_id
- * `getProject(account_id, project_id)` GET /:account_id/projects/:project_id
- * `getClient(account_id, project_id)` GET /:account_id/clients/:client_id
- * `getUser(account_id, user_id)` GET /:account_id/users/:user_id
- * `getEvent(account_id, event_id)` GET /:account_id/events/:event_id
+ * `accounts.list(cb)` /accounts - Get a list of all accounts.
+ * `getAccount(account_id)` GET /accounts/:account_id - Get a specific account entity by Id.
+ * `getProject(account_id, project_id)` GET /:account_id/projects/:project_id - Get a specific account project by Id.
+ * `getClient(account_id, project_id)` GET /:account_id/clients/:client_id - Get a specific account client by Id.
+ * `getUser(account_id, user_id)` GET /:account_id/users/:user_id - Get a specific account user by Id.
+ * `getEvent(account_id, event_id)` GET /:account_id/events/:event_id - Get a specific event by Id.
 
-Account API (returns an Account entity or Account of Entities)
- * [account].get(cb) /accounts/:account_id - Get/Fetch a given account again.
- * [account].users(cb) /:account_id/users - Get an array of all account users (returns array of * [Accounts])
- * [account].clients(cb) /:account_id/clients
- * [account].projects(cb) /:account_id/projects
- * [account].createProject(params, cb) /:account_id/projects
- * [account].createUser(params, cb) /:account_id/users
- * [account].createEvent(params, cb) /:account_id/events
+Account API (returns one or more `Account` Entities)
+ * `[account].get(cb)` /accounts/:account_id - Get/Fetch a given account again.
+ * `[account].users(cb)` /:account_id/users - Get an array of all account users (returns array of * `[Accounts])
+ * `[account].clients(cb)` /:account_id/clients - Get all clients for a given Account Entity.
+ * `[account].projects(cb)` /:account_id/projects - Get all projects for a given Account Entity.
+ * `[account].createProject(params, cb)` /:account_id/projects - Get a specific project by id.
+ * `[account].createUser(params, cb)` /:account_id/users - Get a specific User by id.
+ * `[account].createEvent(params, cb)` /:account_id/events - Get a specific event by id.
 
-Project API
- * [project].get(cb) /:account_id/projects/:project_id - Reload/Fetches a given project again.
- * [project].update(params, cb) /:account_id/projects/:project_id - Updates a Project values.
- * [project].delete(cb) /:account_id/projects/:project_id - Deletes a given project.
- * [project].events(cb) /:account_id/projects/:project_id/events - Returns an list of all project events entities.
- * [project].createEvent(params, cb) /:account_id/projects/:project_id/events
+Project API (returns one or more `Project` Entities)
+ * `[project].get(cb)` /:account_id/projects/:project_id - Reload/Fetchea given project again.
+ * `[project].update(params, cb)` /:account_id/projects/:project_id - Updates a Project values.
+ * `[project].delete(cb)` /:account_id/projects/:project_id - Deletes a given project.
+ * `[project].events(cb)` /:account_id/projects/:project_id/events - Returns an list of all project events entities.
+ * `[project].createEvent(params, cb)` /:account_id/projects/:project_id/events
 
-Client API
- * [client].get(id, cb) /:account_id/clients
- * [client].update(params, cb) /:account_id/clients/:client_id
- * [client].delete(cb) /:account_id/clients/:client_id
+Client API (returns one or more `Client` Entities)
+ * `[client].get(id, cb)` /:account_id/clients - Reload/Fetch a given client entity.
+ * `[client].update(params, cb)` /:account_id/clients/:client_id - Update a client.
+ * `[client].delete(cb)` /:account_id/clients/:client_id - Delete a client.
 
-User API
- * [user].get(cb) /:account_id/users
- * [user].update(params, cb) /:account_id/users/:user_id
- * [user].delete(cb) /:account_id/users/:user_id
- * [user].events(cb) /:account_id/users/:user_id/events
- * [user].createEvent(params, cb) /:account_id/users/:user_id/events
+User API (returns one or more `User` Entities)
+ * `[user].get(cb)` /:account_id/users - Reload/Fetch a given user.
+ * `[user].update(params, cb)` /:account_id/users/:user_id - Update a given user.
+ * `[user].delete(cb)` /:account_id/users/:user_id - Delete a user.
+ * `[user].events(cb)` /:account_id/users/:user_id/events - Get all events for the user.
+ * `[user].createEvent(params, cb)` /:account_id/users/:user_id/events - Create an event for the user.
 
-Event API (Time Records)
- * [event].get(cb) /:account_id/users/:user_id/events
- * [event].update(params, cb) /:account_id/events/:event_id
- * [event].changeProject(project_id, cb) /:account_id/projects/:project_id/events/:event_id
- * [event].changeUser(user_id, cb) /:account_id/users/:user_id/events/:event_id
- * [event].delete(cb) /:account_id/events/:event_id
+Event API (Time Records, returns one or more `Event` Entities)
+ * `[event].get(cb)` /:account_id/users/:user_id/events - Reload/Fetch a given event.
+ * `[event].update(params, cb)` /:account_id/events/:event_id - Update a given event.
+ * `[event].changeProject(project_id, cb)` /:account_id/projects/:project_id/events/:event_id - Change the project associated wth a given event.
+ * `[event].changeUser(user_id, cb)` /:account_id/users/:user_id/events/:event_id - Change the user associate with a given event.
+ * `[event].delete(cb)` /:account_id/events/:event_id - Delete an event.
 
 Report API
     post /:account_id/reports
