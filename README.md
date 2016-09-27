@@ -150,9 +150,9 @@ with their API, which required a server endpoint to handle the Auth workflow.
 1. https://dev.timelyapp.com/
 
 ### ToDOs
- 1. Travis-ci setup.
- 2. Coveralls setup.
- 3. Heroku client app with server side auth.
- 4. Tests
- 5. Query fields in the callbacks.
+ 1. DONE - CI setup.
+ 2. DONE - Coveralls setup.
+ 3. ??? - Heroku client app with server side auth.
+ 4. DONE - Tests
+ 5. ??? - Query fields in the callbacks.
  6. Client side app to enable implicit Oauth 2 workflow.
