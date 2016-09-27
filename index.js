@@ -134,7 +134,7 @@ module.exports = function(token) {
 
             // GET account_id:/users/:project_id
             data.get = function(cb) {
-                  _get(data.account_id + '/projects/' + data.id, {}, function(err, data) {
+                _get(data.account_id + '/projects/' + data.id, {}, function(err, data) {
                       if (err) return cb(err);
                       cb(null, extendProject(data));
                 });
@@ -317,7 +317,8 @@ module.exports = function(token) {
                     if (err) return cb(err);
                     cb(null, data);
                 });
-            }
+            };
+
         }
 
         return data;
@@ -340,7 +341,38 @@ module.exports = function(token) {
                     cb(null, extendAccount(data));
                 });
             }
-        }
+        },
+
+        // Helpers that allow account and entity id access. These are designed
+        // to help Express endpoints access data more quickly.
+
+        getProject: function(account_id, project_id, cb) {
+            _get(account_id + '/projects/' + project_id, {}, function(err, data) {
+                  if (err) return cb(err);
+                  cb(null, extendProject(data));
+            });
+        },
+
+        getEvent: function(account_id, event_id, cb) {
+            _get(account_id + '/events/' + event_id, {}, function(err, data) {
+                  if (err) return cb(err);
+                  cb(null, eventEvent(data, null, null));
+            });
+        },
+
+        getClient: function(account_id, client_id, cb) {
+            _get(account_id + '/clients/' + client_id, {}, function(err, data) {
+                  if (err) return cb(err);
+                  cb(null, extendClient(data));
+            });
+        },
+
+        getUser: function(account_id, user_id, cb) {
+            _get(account_id + '/users/' + user_id, {}, function(err, data) {
+                  if (err) return cb(err);
+                  cb(null, extendUser(data));
+            });
+        },
 
     };
 

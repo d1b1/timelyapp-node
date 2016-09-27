@@ -22,57 +22,85 @@ This package will stay on gh until it gets its tests and a bit more polish.
 ### API Implemented
 The following are the api routes implemented. The OAuth2 server side calls are not
 relevant for this package. (Base URL https://api.timelyapp.com/1.0). The package
-API extends each entity with GET, UPDATE, DELETE, and Entity specific list
+API extends each entity with get, UPDATE, DELETE, and Entity specific list
 queries. The API structure is in flux, so `account.get` might change to `account.fetch`.
 Right now to access any sub entity, the users needs to walk the entity tree, this
 is changing.
 
+    Root Functions
+        getProject(account_id, project_id) GET /:account_id/projects/:project_id
+        getClient(account_id, project_id) GET /:account_id/clients/:client_id
+        getUser(account_id, user_id) GET /:account_id/users/:user_id
+        getEvent(account_id, event_id) GET /:account_id/events/:event_id
+
     Account API
-        GET /accounts
-        GET /accounts/:account_id
-        USERS /:account_id/users
-        CLIENTS /:account_id/clients
-        PROJECTS /:account_id/projects
+        account.list(cb) /accounts
+        account.get(cb) /accounts/:account_id
+        account.users(cb) /:account_id/users
+        account.clients(cb) /:account_id/clients
+        account.projects(cb) /:account_id/projects
+        account.createProject(params, cb) /:account_id/projects
+        account.createUser(params, cb) /:account_id/users
+        account.createEvent(params, cb) /:account_id/events
 
     Project API
-        GET /:account_id/projects
-        GET /:account_id/projects/:project_id
-        POST /:account_id/projects
-        UPDATE /:account_id/projects/:project_id
-        DELETE /:account_id/projects/:project_id
+        [project].get(cb) /:account_id/projects/:project_id - Reload/Fetches a given project again.
+        [project].update(params, cb) /:account_id/projects/:project_id - Updates a Project values.
+        [project].delete(cb) /:account_id/projects/:project_id - Deletes a given project.
+        [project].events(cb) /:account_id/projects/:project_id/events - Returns an list of all project events entities.
+        [project].createEvent(params, cb) /:account_id/projects/:project_id/events
 
     Client API
-        GET /:account_id/clients
-        POST /:account_id/clients
-        UPDATE /:account_id/clients/:client_id
-        DELETE /:account_id/clients/:client_id
+        [client].get(id, cb) /:account_id/clients
+        [client].update(params, cb) /:account_id/clients/:client_id
+        [client].delete(cb) /:account_id/clients/:client_id
 
     User API
-        GET /:account_id/users
-        POST /:account_id/users
-        UPDATE /:account_id/users/:user_id
-        DELETE /:account_id/users/:user_id
+        [user].get(cb) /:account_id/users
+        [user].update(params, cb) /:account_id/users/:user_id
+        [user].delete(cb) /:account_id/users/:user_id
+        [user].events(cb) /:account_id/users/:user_id/events
+        [user].createEvent(params, cb) /:account_id/users/:user_id/events
 
     Event API (Time Records)
-        GET /:account_id/events
-        GET /:account_id/users/:user_id/events
-        GET /:account_id/projects/:project_id/events
-        POST /:account_id/events
-        POST /:account_id/users/:user_id/events
-        POST /:account_id/projects/:project_id/events
-        UPDATE /:account_id/events/:event_id
-        CHANGEPROJECT /:account_id/projects/:project_id/events/:event_id
-        CHANGEUSER /:account_id/users/:user_id/events/:event_id
-        DELETE /:account_id/events/:event_id
+        [event].get(cb) /:account_id/users/:user_id/events
+        [event].update(params, cb) /:account_id/events/:event_id
+        [event].changeProject(project_id, cb) /:account_id/projects/:project_id/events/:event_id
+        [event].changeUser(user_id, cb) /:account_id/users/:user_id/events/:event_id
+        [event].delete(cb) /:account_id/events/:event_id
 
     Report API
-        POST /:account_id/reports
+        post /:account_id/reports
 
 ### Examples
+Get a specific project, using a helper.
+
+    timely.getProject(1, 1212, function(err, project) {
+        res.json(project);
+    });
+
 Get all the users in a given account.
 
     timely.account.get(1212, function(err, account) {
-        account.users()
+        account.users(function(err, users) {
+            res.json(users);
+        });
+    });
+
+Create an Event
+
+    timely.account.get(1212, function(err, account) {
+        account.createEvent({ ... }, function(err, event) {
+            res.json(event);
+        });
+    });
+
+Create an Project
+
+    timely.account.get(1212, function(err, account) {
+        account.createProject({ ... }, function(err, project) {
+            res.json(project);
+        });
     });
 
 ### Qualifications
