@@ -16,32 +16,42 @@ This package will stay on gh until it gets its tests and a bit more polish.
 
     npm install git+https://git@github.com/d1b1/timelyapp-node.git#master
 
+    // Coming soon.
+    // npm install timelyapp-node
+
 ### API Implemented
 The following are the api routes implemented. The OAuth2 server side calls are not
-relavent for this package. (Base URL https://api.timelyapp.com/1.0)
+relevant for this package. (Base URL https://api.timelyapp.com/1.0). The package
+API extends each entity with GET, UPDATE, DELETE, and Entity specific list
+queries. The API structure is in flux, so `account.get` might change to `account.fetch`.
+Right now to access any sub entity, the users needs to walk the entity tree, this
+is changing.
 
     Account API
         GET /accounts
         GET /accounts/:account_id
+        USERS /:account_id/users
+        CLIENTS /:account_id/clients
+        PROJECTS /:account_id/projects
 
     Project API
         GET /:account_id/projects
         GET /:account_id/projects/:project_id
         POST /:account_id/projects
-        PUT /:account_id/projects/:project_id
-        DEL /:account_id/projects/:project_id
+        UPDATE /:account_id/projects/:project_id
+        DELETE /:account_id/projects/:project_id
 
     Client API
         GET /:account_id/clients
         POST /:account_id/clients
-        PUT /:account_id/clients/:client_id
-        DEL /:account_id/clients/:client_id
+        UPDATE /:account_id/clients/:client_id
+        DELETE /:account_id/clients/:client_id
 
     User API
         GET /:account_id/users
         POST /:account_id/users
-        PUT /:account_id/users/:user_id
-        DEL /:account_id/users/:user_id
+        UPDATE /:account_id/users/:user_id
+        DELETE /:account_id/users/:user_id
 
     Event API (Time Records)
         GET /:account_id/events
@@ -50,13 +60,20 @@ relavent for this package. (Base URL https://api.timelyapp.com/1.0)
         POST /:account_id/events
         POST /:account_id/users/:user_id/events
         POST /:account_id/projects/:project_id/events
-        PUT /:account_id/events/:event_id
-        PUT /:account_id/projects/:project_id/events/:event_id
-        PUT /:account_id/users/:user_id/events/:event_id
-        DEL /:account_id/events/:event_id
+        UPDATE /:account_id/events/:event_id
+        CHANGEPROJECT /:account_id/projects/:project_id/events/:event_id
+        CHANGEUSER /:account_id/users/:user_id/events/:event_id
+        DELETE /:account_id/events/:event_id
 
     Report API
         POST /:account_id/reports
+
+### Examples
+Get all the users in a given account.
+
+    timely.account.get(1212, function(err, account) {
+        account.users()
+    });
 
 ### Qualifications
 This wrapper does not enforce pre-flight data validation. And will (soon) simple

@@ -145,7 +145,7 @@ module.exports = function(token) {
                     if (err) return cb(err);
                     cb(null, extendEvent(data));
                 });
-            }
+            };
         }
 
         return data;
