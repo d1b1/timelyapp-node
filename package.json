@@ -9,6 +9,9 @@
     "coverage": "istanbul cover _mocha test -- -t 10000 -R spec",
     "coveralls": "npm run-script coverage && node node_modules/.bin/coveralls < coverage/lcov.info"
   },
+  "engines": {
+    "node": "6.11.1"
+  },
   "license": "MIT",
   "dependencies": {
     "request": "^2.74.0",
